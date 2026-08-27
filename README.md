@@ -142,14 +142,19 @@ The result will look something like this:
 
 If all you need is a static terrain, the easiest way to generate a heightmap is
 to use the [demo](https://icecreamyou.github.io/THREE.Terrain/) and save the
-generated heightmap that appears in the upper-left corner. However, if you want
-to perform custom manipulations on the terrain first, you will need to export
-the heightmap yourself.
+generated heightmap that appears in the upper-left corner. The demo even has a
+"sculpt" tool to make manual modifications to the terrain. However, if you want
+to perform more custom manipulations on the terrain first, you will need to
+export the heightmap yourself.
 
 To import a heightmap, create a terrain as explained above, but pass the loaded
 heightmap image (or a canvas containing a heightmap) to the `heightmap` option
 for the `Terrain()` function (instead of passing a procedural generation
 function).
+
+Note that since the library supports seeded randomness, you may not need to
+export and import the whole terrain; instead, you might just need the seed you
+used to generate the terrain of interest.
 
 ### Dynamic Terrain Materials
 
@@ -185,8 +190,9 @@ kinds of smoothing; and more. These features are all fully documented in the
 [source code](https://github.com/IceCreamYou/THREE.Terrain/tree/gh-pages/src).
 Additionally, you can create custom methods for generating terrain or affecting
 other processes.
+
 The demo uses [`@dgreenheck/ez-tree`](https://github.com/dgreenheck/ez-tree)
-(MIT licensed) for trees.
+(MIT licensed) for trees and bushes.
 
 ### Development
 
@@ -205,6 +211,17 @@ To rebuild the library bundles in `dist/`:
 ```bash
 npm run build
 ```
+
+To run the regression suite:
+
+```bash
+npm test
+```
+
+The suite uses Node's built-in test runner and the existing Playwright
+dependency. It covers seeded terrain construction, normalization callbacks,
+analysis, blended materials, instanced grass, and browser-only heightmap
+conversion.
 
 There is also a [statistics simulation](statistics/) that compares procedural
 generation methods. Run it with `npm start` and open `/statistics/`, or see
